@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+    <form class="" action="{% url 'registration' %}" method="post">{% csrf_token %}
+        <h2 class=""> Registration </h2>
+        {{ form.non_field_errors }}
+        <div class="">
+            <p>Enter your data</p>
+
+            {{ form.username.errors }}
+            <input type="text" class="" name="username" id='id_username' maxlength="32"  placeholder="Username" autofocus="">
+
+            {{ form.role.errors }}
+            <select id="id_role" name="role">
+                {% for x,y in form.fields.role.choices %}
+                    <option value="{{ x }}">{{ y }}</option>
+                {% endfor %}
+            </select>
+            {{ form.password1.errors }}
+            <input type="password" class="" name="password1" id="id_password1" maxlength="32" placeholder="Password">
+
+            {{ form.password2.errors }}
+            <input type="password" class="" name="password2" id="id_password2" maxlength="32" placeholder="Repeat password">
+            <button class="" type="submit">Register</button>
+        </div>
+    </form>
+{% endblock %}

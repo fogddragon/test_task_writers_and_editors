@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+    <form class="" action="{% url 'login' %}" method="post">{% csrf_token %}
+        {{ form.non_field_errors }}
+        <h2 class="">Авторизация</h2>
+        <div class="">
+            {{ form.username.errors }}
+            <input type="text" class="" placeholder="Email" id="id_username" name="username" autofocus>
+            {{ form.password.errors }}
+            <input type="password" class="" placeholder="Пароль"  name="password" id="id_password">
+            <button class="" type="submit">Войти</button>
+        </div>
+      </form>
+{% endblock %}
