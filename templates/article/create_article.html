@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+    <form class="" action="{% url 'create_article' %}" method="post">{% csrf_token %}
+        <h2 class=""> New article </h2>
+        {{ form.non_field_errors }}
+        <div class="">
+            {{ form.name.errors }}
+            <input type="text" class="" name="name" id='id_name' maxlength="32"  placeholder="Article name" autofocus="">
+
+            {{ form.link_to_article.errors }}
+            <input type="text" class="" name="link_to_article" id='id_link_to_article' maxlength="32"  placeholder="Link to google drive" autofocus="">
+            <button class="" type="submit">Create</button>
+        </div>
+    </form>
+{% endblock %}
