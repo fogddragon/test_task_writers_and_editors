@@ -4,11 +4,16 @@
 
 
 {% block content %}
-       <h2 class=""> {{ form.name }} </h2>
-        <div class="">
-            {{ form.link_to_article}}
+   <h2 class=""> {{ object.name }} </h2>
+    <div class="">
+        <p>Link to aricle <a href="{{ object.link_to_article}}">{{ object.link_to_article}}</a></p>
 
-            {{ form.status }}
+        <p>Article status {{ object.get_status_display }}</p>
 
-        </div>
+    </div>
+    {% if user == object.author %}
+        <a href="{% url 'update_article' pk=object.id %}" class="btn btn-default">Edit</a>
+    {% elif user.role == 1 and object.status == 2 %}
+        <a href="{% url 'update_article' pk=object.id %}" class="btn btn-default">Review</a>
+    {% endif %}
 {% endblock %}

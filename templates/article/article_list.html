@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+    <h2 class=""> Articles </h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Article Name</th>
+                <th>Author</th>
+                <th>Status</th>
+                <th>Creation date</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in object_list %}
+            <tr>
+                <td><a href="{% url 'article' pk=article.id %}">{{ article.name }}</a></td>
+                <td>{{ article.author.username }}</td>
+                <td>{{ article.get_status_display }}</td>
+                <td>{{ article.creation_date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

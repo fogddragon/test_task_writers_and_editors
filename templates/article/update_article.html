@@ -4,23 +4,29 @@
 
 
 {% block content %}
-    <form class="" action="{% url 'update_article' %}" method="post">{% csrf_token %}
-        <h2 class=""> Update article </h2>
-        {{ form.non_field_errors }}
-        <div class="">
+    <form class="" action="{% url 'update_article' pk=object.id %}" method="post">{% csrf_token %}
+        <h2 class=""> New article </h2>
+
+        <div class="form-group">
+            {{ form.non_field_errors }}
             {{ form.name.errors }}
-            <input type="text" class="" name="name" id='id_name' maxlength="32"  placeholder="Article name" autofocus="">
-
-            {{ form.link_to_article.errors }}
-            <input type="text" class="" name="link_to_article" id='id_link_to_article' maxlength="32"  placeholder="Link to google drive" autofocus="">
-
-            {{ form.status.errors }}
-            <select id="id_status" name="status">
-                {% for x,y in form.fields.status.choices %}
-                    <option value="{{ x }}">{{ y }}</option>
-                {% endfor %}
-            </select>
-            <button class="" type="submit">Update</button>
+            <label for="id_name">Article name</label>
+            <input type="text" class="form-control"  name="name" id='id_name'  placeholder="Article name" required value="{{ object.name }}">
         </div>
+        <div class="form-group">
+            {{ form.link_to_article.errors }}
+            <label for="id_link_to_article">Link to article</label>
+            <input type="text" class="form-control" name="link_to_article" id='id_link_to_article' placeholder="Link to article" value="{{ object.link_to_article }}">
+        </div>
+        {% if user == object.author and object.status == 0 %}
+            <div class="checkbox">
+                <label><input type="checkbox" name="to_review" id='id_to_review"' > To review</label>
+            </div>
+        {% elif user.role == 1 and object.status == 2 %}
+            <div class="checkbox">
+                <label><input type="checkbox" name="reviewed" id='id_reviewed"' > Reviewed</label>
+            </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
 {% endblock %}

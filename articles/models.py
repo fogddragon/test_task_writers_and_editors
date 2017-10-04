@@ -19,3 +19,6 @@ class Article(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey('writers.User')
     status = models.IntegerField(choices=STATUSES, default=NEW)
+
+    def __str__(self):
+        return self.name

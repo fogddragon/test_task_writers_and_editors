@@ -11,7 +11,7 @@ urlpatterns = [
 
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^logout/$', auth_views.logout,{'next_page': '/'}, name='logout'),
     url(r'^registration/$', RegistrationView.as_view(), name='registration'),
 
     url(r'^article/', include('articles.urls')),

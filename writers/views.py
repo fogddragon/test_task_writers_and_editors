@@ -2,16 +2,19 @@
 from __future__ import unicode_literals
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 
-# Create your views here.
-from django.views.generic import TemplateView, FormView
+from django.urls import reverse
+from django.views.generic import FormView, RedirectView
 
 from writers.forms import RegistrationForm
 
 
-class IndexView(TemplateView):
-    template_name = "index.html"
+class IndexView(RedirectView):
+
+    def get_redirect_url(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return reverse('login')
+        return reverse('article_list')
 
 
 class RegistrationView(FormView):
